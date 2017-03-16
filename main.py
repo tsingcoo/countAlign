@@ -1,5 +1,8 @@
 # coding:utf-8
-def getWordDict(corpus):
+from __future__ import division
+
+
+def getWordDict(corpus):  # 得到测试集中每个词的出现次数
     wordDict = {}
     with open(corpus) as f:
         for line in f.readlines():
@@ -12,8 +15,8 @@ def getWordDict(corpus):
     return wordDict
 
 
-def getAlignDict(corpus, resultFile, referenceFile, wordDict):
-    alignDict = wordDict  # 这个最好把alignDict里面的值初始化为0
+def getAlignDict(corpus, resultFile, referenceFile, wordDict):  # 得到测试街中的每个词在结果对齐文件中和参考对齐文件中一样的次数
+    alignDict = dict(wordDict)  # 这个最好把alignDict里面的值初始化为0
     for k in alignDict:
         alignDict[k] = 0
 
@@ -35,16 +38,63 @@ def getAlignDict(corpus, resultFile, referenceFile, wordDict):
     return alignDict
 
 
+def computeRate(alignDict, wordDict):
+    rateDict = dict(alignDict)
+    for k in rateDict:
+        rateDict[k] = alignDict[k] / wordDict[k]
+
+    return rateDict
+
+
+def getCorpusDict(corpus, wordDict):  # 得到测试集中的词在训练集中出现的次数
+    corpusDict = dict(wordDict)
+    # print (corpusDict)
+    for k in corpusDict:
+        corpusDict[k] = 0
+    # print (corpusDict)
+
+    with open(corpus) as fc:
+        for line in fc.readlines():
+            words = line.strip().split(' ')
+            for word in words:
+                if word in corpusDict:
+                    corpusDict[word] += 1
+    return corpusDict
+
+
+def reverseDict(myDict):
+    reverseWordDict = {}
+    for k in myDict:
+        if myDict[k] in reverseWordDict:
+            reverseWordDict[myDict[k]].append(k)
+        else:
+            reverseWordDict[myDict[k]] = []
+            reverseWordDict[myDict[k]].append(k)
+    return reverseWordDict
+
+
 def main():
     wordDict = getWordDict(
         '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en')
     print(wordDict)
+
     alignDict = getAlignDict(
         '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en',
         '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/infer.16.align',
         '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/test.qin.align',
         wordDict)
     print(alignDict)
+
+    rateDict = computeRate(alignDict, wordDict)
+    print (rateDict)
+
+    corpusDict = getCorpusDict(
+        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.h16.en',
+        wordDict)
+    print (corpusDict)
+    print (len(corpusDict))
+    reverseWordDict = reverseDict(corpusDict)
+    print (reverseWordDict)
 
 
 if __name__ == "__main__":
