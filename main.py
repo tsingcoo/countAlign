@@ -73,28 +73,44 @@ def reverseDict(myDict):
     return reverseWordDict
 
 
+def linkCountFreq(reverseCorpusDict, rateDict):
+    freq = []
+    for word in reverseCorpusDict[0]:
+        freq.append(0)
+
+    return freq
+
+
 def main():
     wordDict = getWordDict(
-        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en')
-    print(wordDict)
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en')
+    # print(wordDict)
 
     alignDict = getAlignDict(
-        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en',
-        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/infer.16.align',
-        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/test.qin.align',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/infer.16.align',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/test.qin.align',
         wordDict)
-    print(alignDict)
+    # print(alignDict)
 
     rateDict = computeRate(alignDict, wordDict)
-    print (rateDict)
+    # print(rateDict)
 
     corpusDict = getCorpusDict(
-        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.h16.en',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.h16.en',
         wordDict)
-    print (corpusDict)
-    print (len(corpusDict))
-    reverseWordDict = reverseDict(corpusDict)
-    print (reverseWordDict)
+    # print(corpusDict)
+    # print(len(corpusDict))
+
+
+    reverseCorpusDict = reverseDict(corpusDict)
+    reverseCorpusList = sorted(reverseCorpusDict.items(), key=lambda d: d[0])
+    print(reverseCorpusList)
+
+
+    # print(reverseCorpusDict[0])
+    # freq = linkCountFreq(reverseCorpusDict, rateDict)
+    # print(freq)
 
 
 if __name__ == "__main__":
