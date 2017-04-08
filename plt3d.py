@@ -28,11 +28,10 @@ def getCorpusDict(corpusPath, testDict):  # 得到测试集中的词在训练集
     return corpusDict
 
 
-def getIncreCorpusDict(corpusDict16, corpusDict26):
+def getIncreCorpusDict(corpusDict16, corpusDict26):  # 得到测试集中的词在训练集中出现的次数的变化
     increCorpusDict = {}
     for word in corpusDict26:
         increCorpusDict[word] = corpusDict26[word] - corpusDict16[word]
-
     return increCorpusDict
 
 
@@ -77,6 +76,7 @@ def getIncrePrecRate(precRateDict16, precRateDict26):
 
 def main():
     testDict = getTestDict('/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en')
-    corpusDict16 = getCorpusDict('/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.16.en', testDict)
-    corpusDict26 = getCorpusDict('/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.26.en', testDict)
-
+    corpusDict16 = getCorpusDict(
+        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.16.en', testDict)
+    corpusDict26 = getCorpusDict(
+        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.26.en', testDict)
