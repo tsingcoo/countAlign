@@ -117,7 +117,16 @@ def getCluster(corpusDict16, increCorpusDict, increPrecRate):
                 i += 1
             ddn[cnt_16][cnt_incre] = temp_sum / i
 
-    return ddn
+    ddn_not0 = {}
+    for cnt_16 in ddn:
+        ddn_not0[cnt_16] = {}
+        for cnt_incre, prec_incre in ddn[cnt_16].items():
+            if prec_incre != 0:
+                ddn_not0[cnt_16][cnt_incre] = prec_incre
+
+        if not ddn_not0[cnt_16]:
+            ddn_not0.pop(cnt_16)
+    return ddn, ddn_not0
 
 
 def main():
@@ -151,9 +160,11 @@ def main():
     # print (changeRate)
     # print (len(changeRate))
 
-    ddn = getCluster(corpusDict16, increCorpusDict, increPrecRate)
+    ddn, ddn_not0 = getCluster(corpusDict16, increCorpusDict, increPrecRate)
     print (ddn)
     print (len(ddn))
+    print (ddn_not0)
+    print (len(ddn_not0))
 
 
 
