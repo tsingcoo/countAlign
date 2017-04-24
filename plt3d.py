@@ -130,20 +130,23 @@ def getCluster(corpusDict16, increCorpusDict, increPrecRate):
 
 
 def main():
-    testDict = getTestDict('/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en')
+    testDict = getTestDict(
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en')
     corpusDict16 = getCorpusDict(
-        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.h16.en', testDict)
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.h16.en', testDict)
     corpusDict26 = getCorpusDict(
-        '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.26.en', testDict)
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.26.en', testDict)
     increCorpusDict = getIncreCorpusDict(corpusDict16, corpusDict26)
-    alignDict16 = getAlignDict('/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en',
-                               '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/infer.16.align',
-                               '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/test.qin.align',
-                               testDict)
-    alignDict26 = getAlignDict('/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en',
-                               '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/infer.26.align',
-                               '/Users/wangql/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/test.qin.align',
-                               testDict)
+    alignDict16 = getAlignDict(
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/infer.16.align',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/test.qin.align',
+        testDict)
+    alignDict26 = getAlignDict(
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/corpus.en',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/infer.26.align',
+        '/Users/wangqinglong/Library/Mobile Documents/com~apple~CloudDocs/WordAlign/Compare/test.qin.align',
+        testDict)
     precRateDict16 = getPrecRate(alignDict16, testDict)
     precRateDict26 = getPrecRate(alignDict26, testDict)
     increPrecRate = getIncrePrecRate(precRateDict16, precRateDict26)
@@ -163,6 +166,9 @@ def main():
     ddn, ddn_not0 = getCluster(corpusDict16, increCorpusDict, increPrecRate)
     print (ddn)
     print (len(ddn))
+    print (ddn_not0)
+    print (len(ddn_not0))
+    ddn_not0 = sorted(ddn_not0.iteritems(), key=lambda d: d[0])
     print (ddn_not0)
     print (len(ddn_not0))
 
